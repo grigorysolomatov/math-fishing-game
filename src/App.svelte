@@ -116,7 +116,8 @@
   }
 
   function checkAnswer() {
-    const answer = parseInt(userAnswer);
+    // userAnswer is already a number from type="number" input
+    const answer = typeof userAnswer === 'number' ? userAnswer : parseInt(userAnswer);
 
     if (answer === currentProblem.answer) {
       mathMessage = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
@@ -143,7 +144,7 @@
   }
 
   function handleKeyPress(e) {
-    if (e.key === 'Enter' && userAnswer.trim() !== '') {
+    if (e.key === 'Enter' && userAnswer !== '' && userAnswer !== null && userAnswer !== undefined) {
       checkAnswer();
     }
   }
@@ -231,7 +232,7 @@
             placeholder="Your answer"
             autofocus
           />
-          <button onclick={checkAnswer} disabled={userAnswer.trim() === ''}>
+          <button onclick={checkAnswer} disabled={userAnswer === '' || userAnswer === null || userAnswer === undefined}>
             Submit
           </button>
         </div>
